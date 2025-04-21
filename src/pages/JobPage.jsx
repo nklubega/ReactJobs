@@ -1,12 +1,20 @@
 /*import { useState, useEffect } from "react"*/
-import { useParams, useLoaderData } from "react-router-dom";
+
 import { Link } from "react-router-dom";
 import { FaArrowLeft, FaMapMarker } from "react-icons/fa";
 
-const JobPage = () => {
+import { useParams, useLoaderData, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+const JobPage = ({ deleteJob }) => {
+  const navigate = useNavigate();
     const { id } = useParams();
     const job = useLoaderData();
    /** const [job, setJob] = useState(null);
+<<<<<<< HEAD
+=======
+    * 
+>>>>>>> d2541cf ("Added delete, update and add job pages")
     const [loading, setLoading] = useState(true)
 
      useEffect(() => {
@@ -26,6 +34,23 @@ const JobPage = () => {
       fetchJob();
 
     }, []) */
+
+  const onDeleteClick = (jobId) => {
+    const confirm = window.confirm(
+      'Are you sure you want to delete this job?'
+    );
+
+    if(!confirm) return;
+    //delete job from the database
+    deleteJob(jobId);
+
+    toast.success('Job deleted successfully');
+    //redirect to jobs page
+
+    navigate('/jobs');
+  }
+
+
   return (
   <>
   <section>
@@ -126,4 +151,6 @@ const jobLoader = async ({ params }) => {
 
 
 
+
 export { JobPage as default, jobLoader }
+
